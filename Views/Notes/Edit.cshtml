@@ -1,0 +1,94 @@
+@model NotesApp2.Models.Note
+
+@{
+    ViewData["Title"] = "Редактиране";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="bi bi-pencil-square"></i> Редактиране на бележка</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="UserId" />
+                        <input type="hidden" asp-for="CreatedAt" />
+                        
+                        <div class="mb-3">
+                            <label asp-for="Title" class="form-label">Заглавие</label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Content" class="form-label">Съдържание</label>
+                            <textarea asp-for="Content" class="form-control" rows="6"></textarea>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Цвят</label>
+                            <div class="d-flex gap-2">
+                                <input type="radio" class="btn-check" name="Color" id="color1" value="#ffcccb" 
+                                       @(Model.Color == "#ffcccb" ? "checked" : "") />
+                                <label class="btn btn-outline-secondary" for="color1" 
+                                       style="background-color: #ffcccb; width: 50px; height: 50px;"></label>
+
+                                <input type="radio" class="btn-check" name="Color" id="color2" value="#ffffcc" 
+                                       @(Model.Color == "#ffffcc" ? "checked" : "") />
+                                <label class="btn btn-outline-secondary" for="color2" 
+                                       style="background-color: #ffffcc; width: 50px; height: 50px;"></label>
+
+                                <input type="radio" class="btn-check" name="Color" id="color3" value="#ccffcc" 
+                                       @(Model.Color == "#ccffcc" ? "checked" : "") />
+                                <label class="btn btn-outline-secondary" for="color3" 
+                                       style="background-color: #ccffcc; width: 50px; height: 50px;"></label>
+
+                                <input type="radio" class="btn-check" name="Color" id="color4" value="#cce5ff" 
+                                       @(Model.Color == "#cce5ff" ? "checked" : "") />
+                                <label class="btn btn-outline-secondary" for="color4" 
+                                       style="background-color: #cce5ff; width: 50px; height: 50px;"></label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Запази промените
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> Отказ
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-check:checked + label {
+        border: 3px solid #0d6efd !important;
+        box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
+        transform: scale(1.1);
+        transition: all 0.2s ease;
+    }
+    
+    .btn-check + label {
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 3px solid transparent;
+    }
+    
+    .btn-check + label:hover {
+        transform: scale(1.05);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
